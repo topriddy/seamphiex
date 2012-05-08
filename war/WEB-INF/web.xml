@@ -41,4 +41,25 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+	
+	<error-page>
+    <description>Missing login</description>
+    <error-code>401</error-code>
+    <location>/general-error.html</location>
+</error-page>
+<error-page>
+    <description>Forbidden directory listing</description>
+    <error-code>403</error-code>
+    <location>/general-error.html</location>
+</error-page>
+<error-page>
+    <description>Uncaught exception</description>
+    <error-code>500</error-code>
+    <location>/general-error.html</location>
+</error-page>
+<error-page>
+    <description>Unsupported servlet method</description>
+    <error-code>503</error-code>
+    <location>/general-error.html</location>
+</error-page>
 </web-app>

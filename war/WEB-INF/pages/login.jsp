@@ -23,7 +23,8 @@
 			<div class="controls">
 				<select name="role">
 					<option value="default">Select a role</option>
-					<option value="ADMIN">Admin</option>
+					<option value="ADMIN">Administrator</option>
+					<option value="SUPERVISOR">Supervisor</option>
 					<option value="STUDENT">Student</option>
 				</select>
 			</div>

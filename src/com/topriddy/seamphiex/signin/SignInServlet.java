@@ -9,13 +9,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.google.appengine.api.users.User;
 import com.topriddy.seamphiex.CommonConstants;
 import com.topriddy.seamphiex.ViewController;
-import com.topriddy.seamphiex.entity.AppUser;
+import com.topriddy.seamphiex.dao.AdminDao;
+import com.topriddy.seamphiex.dao.StudentDao;
+import com.topriddy.seamphiex.dao.SupervisorDao;
+import com.topriddy.seamphiex.entity.Admin;
 import com.topriddy.seamphiex.entity.Role;
+import com.topriddy.seamphiex.entity.Student;
+import com.topriddy.seamphiex.entity.Supervisor;
 
 public class SignInServlet extends HttpServlet implements CommonConstants {
 	private static Logger log = Logger.getLogger(SignInServlet.class.getName());
@@ -53,6 +56,9 @@ public class SignInServlet extends HttpServlet implements CommonConstants {
 		} else if (role.equalsIgnoreCase(Role.STUDENT.toString())) {
 			log.info("Selected Role is Student");
 			signInAsStudent(username, password, req, resp);
+		}else if (role.equalsIgnoreCase(Role.SUPERVISOR.toString())) {
+			log.info("Selected Role is Supervisor");
+			signInAsSupervisor(username, password, req, resp);
 		} else {
 			failedSignIn(req, resp);
 		}
@@ -60,24 +66,34 @@ public class SignInServlet extends HttpServlet implements CommonConstants {
 
 	private void signInAsAdmin(String username, String password,
 			HttpServletRequest req, HttpServletResponse resp) {
-		if(!(username.equalsIgnoreCase(DEFAULT_ADMIN) && password.equalsIgnoreCase(DEFAULT_ADMIN_PASSWORD))){
+		AdminDao adminDao = new AdminDao();
+		Admin admin = adminDao.findByUsername(username);
+		if(admin == null || !admin.getPassword().equals(password)){
 			failedSignIn(req, resp);
 		}
-		HttpSession session = req.getSession();
-		AppUser appUser = new AppUser(username, password);
-		session.setAttribute(APP_USER, appUser);
+		req.getSession().setAttribute(APP_USER, admin);
 		ViewController.switchPage(req, resp, "admin/welcomeAdmin");
+	}
+	
+	private void signInAsSupervisor(String username, String password,
+			HttpServletRequest req, HttpServletResponse resp) {
+		SupervisorDao supervisorDao = new SupervisorDao();
+		Supervisor supervisor = supervisorDao.findByUsername(username);
+		if(supervisor == null || !supervisor.getPassword().equals(password)){
+			failedSignIn(req, resp);
+		}
+		req.getSession().setAttribute(APP_USER, supervisor);
+		ViewController.switchPage(req, resp, "supervisor/welcomeSupervisor");
 	}
 
 	private void signInAsStudent(String username, String password,
 			HttpServletRequest req, HttpServletResponse resp) {
-		if(!(username.equalsIgnoreCase(DEFAULT_STUDENT) && password.equalsIgnoreCase(DEFAULT_STUDENT_PASSWORD))){
+		StudentDao studentDao = new StudentDao();
+		Student student = studentDao.findByUsername(username);
+		if(student == null || !student.getPassword().equals(password)){
 			failedSignIn(req, resp);
 		}
-		
-		HttpSession session = req.getSession();
-		AppUser appUser = new AppUser(username, password);
-		session.setAttribute(APP_USER, appUser);
+		req.getSession().setAttribute(APP_USER, student);
 		ViewController.switchPage(req, resp, "student/welcomeStudent");
 	}
 
