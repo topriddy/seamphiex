@@ -1,12 +1,15 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+
+<%@ page isELIgnored="false"%>
+
 <!DOCTYPE>
-<html lang="en">
+<html>
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title>App+</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title></title>
 <link rel="stylesheet" type="text/css"
 	href="bootstrap/css/bootstrap.min.css" />
-</head>
 <body>
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">

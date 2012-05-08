@@ -30,5 +30,6 @@
 			<button type="submit" class="btn btn-primary">Sign In</button>
 		</form>
 	</div>
+	<!-- <%@ include file="/WEB-INF/pages/student/welcomeStudent.jsp" %>-->
 </body>
 </html>

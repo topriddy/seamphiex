@@ -32,6 +32,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<url-pattern>/signOut</url-pattern>
 	</servlet-mapping>
 	
+	<listener>
+  	<listener-class>
+  		com.topriddy.seamphiex.ApplicationContext
+  	</listener-class>
+  </listener>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
