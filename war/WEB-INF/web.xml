@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xmlns="http://java.sun.com/xml/ns/javaee"
-xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+	<servlet>
+		<servlet-name>MainServlet</servlet-name>
+		<servlet-class>com.topriddy.seamphiex.MainServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MainServlet</servlet-name>
+		<url-pattern>/ify</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SignInServlet</servlet-name>
+		<servlet-class>com.topriddy.seamphiex.signin.SignInServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SignInServlet</servlet-name>
+		<url-pattern>/signIn</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SignOutServlet</servlet-name>
+		<servlet-class>com.topriddy.seamphiex.signin.SignOutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SignOutServlet</servlet-name>
+		<url-pattern>/signOut</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
