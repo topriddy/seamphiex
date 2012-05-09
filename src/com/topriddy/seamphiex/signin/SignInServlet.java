@@ -34,13 +34,14 @@ public class SignInServlet extends HttpServlet implements CommonConstants {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		String role = req.getParameter("role");
+//		String action = req.getParameter("action");
+//		String redirect = req.getParameter("redirect");
 
 		log.info("Username is: " + username);
 		log.info("Password is: " + password);
 		log.info("Role is: " + role);
+		log.info("redirect: " + req.getParameter("redirect"));
 
-		List<String> errorList = new ArrayList<String>();
-		req.getSession().setAttribute("errorList", errorList);
 		if (username == null || username.equals("")) {
 
 		}
@@ -72,7 +73,11 @@ public class SignInServlet extends HttpServlet implements CommonConstants {
 			failedSignIn(req, resp);
 		}
 		req.getSession().setAttribute(APP_USER, admin);
-		ViewController.switchPage(req, resp, "admin/welcomeAdmin");
+		try{
+			req.getRequestDispatcher("/AdminPortlet").forward(req, resp);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
 	}
 	
 	private void signInAsSupervisor(String username, String password,
@@ -94,7 +99,11 @@ public class SignInServlet extends HttpServlet implements CommonConstants {
 			failedSignIn(req, resp);
 		}
 		req.getSession().setAttribute(APP_USER, student);
-		ViewController.switchPage(req, resp, "student/welcomeStudent");
+		try{
+			req.getRequestDispatcher("/StudentPortlet").forward(req, resp);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
 	}
 
 	private void failedSignIn(HttpServletRequest req, HttpServletResponse resp) {

@@ -4,6 +4,29 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
+	
+	<!-- Portlet Definitions -->
+	<servlet>
+		<servlet-name>AdminPortlet</servlet-name>
+		<servlet-class>com.topriddy.seamphiex.portlet.admin.AdminPortlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminPortlet</servlet-name>
+		<url-pattern>/AdminPortlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>StudentPortlet</servlet-name>
+		<servlet-class>com.topriddy.seamphiex.portlet.student.StudentPortlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StudentPortlet</servlet-name>
+		<url-pattern>/StudentPortlet</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- End of Portlet  Definitions-->
+
 
 	<servlet>
 		<servlet-name>MainServlet</servlet-name>

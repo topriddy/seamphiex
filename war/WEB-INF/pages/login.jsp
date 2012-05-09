@@ -14,6 +14,7 @@
 	<div class="container">
 		<h2> Sign In Page</h2>
 		<form action="/signIn" method="post">
+			<input type="hidden" name="redirect" value="login"/>
 			<div>
 				<input name="username" type="text" class="input-medium" placeholder="Username">
 			</div>
