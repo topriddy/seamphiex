@@ -66,6 +66,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</welcome-file-list>
 	
 	<error-page>
+    <description>Not Supported Error</description>
+    <error-code>405</error-code>
+    <location>/general-error.html</location>
+</error-page>
+	<error-page>
     <description>Missing login</description>
     <error-code>401</error-code>
     <location>/general-error.html</location>

@@ -12,15 +12,8 @@ public class ViewController {
 
 	public static void switchPage(HttpServletRequest req,
 			HttpServletResponse resp, String page) {
-//		try {
-//			resp.sendRedirect("/WEB-INF/pages/" + page + ".jsp");
-//		} catch (Exception ex) {
-//			log.severe("Error occured switching page to " + page);
-//			log.severe(ex.getMessage());
-//		}
-		
 		RequestDispatcher dispatcher = req
-				.getRequestDispatcher("/WEB-INF/pages/" + page + ".jsp");
+				.getRequestDispatcher(getPage(page));
 		try {
 			dispatcher.forward(req, resp);
 		} catch (Exception ex) {
@@ -28,5 +21,9 @@ public class ViewController {
 			log.severe(ex.toString());
 			ex.printStackTrace();
 		}
+	}
+	
+	public static String getPage(String subPath){
+		return "/WEB-INF/pages/" + subPath + ".jsp";
 	}
 }

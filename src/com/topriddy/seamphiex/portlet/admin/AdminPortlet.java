@@ -18,21 +18,17 @@ public class AdminPortlet extends Portlet{
 	private final String PORTLET_STATE = "adminPortletState";
 	private final String PORTLET_CONTENT_PAGE = "adminPortlet/content";
 	
-	
 	private final Logger log = Logger.getLogger(AdminPortlet.class.getSimpleName());
 	
 	@Override
 	protected void doPortletService(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		PortletState portletState = (PortletState)req.getSession().getAttribute(PORTLET_STATE);
-		if(portletState == null){
-			portletState = new AdminPortletState();
-			req.getSession().setAttribute(PORTLET_STATE, portletState);
-		}
 		processAction(req, resp);
 	}
 	
 	private void processAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		AdminPortletState adminPortletState = AdminPortletState.getInstance(req, resp);
+		
 		String action = req.getParameter("action");
 		String redirect = req.getParameter("redirect");
 		String page = PORTLET_CONTENT_PAGE;
@@ -42,6 +38,16 @@ public class AdminPortlet extends Portlet{
 			page = redirect;
 		}
 		
+		if(action!= null && action.equals("switchTabs")){
+			Integer tab = Integer.parseInt(req.getParameter("tab"));
+			if(tab == 1){
+				adminPortletState.setCurrentView(AdminPortletState.MANAGE_PROJECT_VIEW); 
+			}else if(tab == 2){
+				adminPortletState.setCurrentView(AdminPortletState.MANAGE_SUPERVISORS_VIEW);
+			}else if(tab == 3){
+				adminPortletState.setCurrentView(AdminPortletState.MANAGE_STUDENTS_VIEW);
+			}
+		}
 		ViewController.switchPage(req, resp, page);
 	}
 }

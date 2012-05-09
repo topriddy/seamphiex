@@ -1,3 +1,5 @@
+<%@page import="com.topriddy.seamphiex.ViewController"%>
+<%@page import="com.topriddy.seamphiex.portlet.admin.AdminPortletState"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <!DOCTYPE>
 <html lang="en">
@@ -13,31 +15,48 @@ body {
 }
 </style>
 
-<script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="/bootstrap/js/jquery-1.7.1.js"></script>
 <script type="text/javascript">
 	function switchTab(id) {
 		$('.nav li').removeClass("active");
 		$("#" + id).addClass("active");
 	}
 </script>
-
 </head>
 <body>
+	<%
+		AdminPortletState adminPortletState = AdminPortletState.getInstance(request, response);
+	%>
+
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
 				<a class="brand" href="#">App+</a>
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li class="active"><a href="#">Manage Projects</a></li>
-						<li><a href="#about">Manage Supervisors</a></li>
-						<li><a href="#contact">Manage Students</a></li>
+						<li class="active"><a href="/AdminPortlet?action=switchTabs&tab=1">Manage Projects</a></li>
+						<li><a href="/AdminPortlet?action=switchTabs&tab=2">Manage Supervisors</a></li>
+						<li><a href="/AdminPortlet?action=switchTabs&tab=3">Manage Students</a></li>
 						<li class="pull-right"><a href="/signOut"> Sign Out</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
-	<h1>Welcome Administrator</h1>
+	<div id="container">
+		<%
+			if (adminPortletState.getCurrentView() == AdminPortletState.DEFAULT_VIEW
+				|| adminPortletState.getCurrentView() == AdminPortletState.MANAGE_PROJECT_VIEW) {
+		%>
+			<jsp:include page="default.jsp" flush="false" />
+		<%
+			} else if(adminPortletState.getCurrentView() == AdminPortletState.MANAGE_STUDENTS_VIEW){
+		%>
+			<jsp:include page="manageStudents.jsp" flush="false" />
+		<%}else if(adminPortletState.getCurrentView() == AdminPortletState.MANAGE_SUPERVISORS_VIEW){
+		%>
+			<jsp:include page="manageSupervisors.jsp" flush="false" />
+		<%} %>
+	</div>
 </body>
 </html>
